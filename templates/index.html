@@ -32,7 +32,6 @@ controllers/main_controller.py.
             <div class="card-body text-center py-4">
                 <i class="bi bi-box-seam" style="font-size: 2rem; color: var(--senai-vermelho);"></i>
                 <div class="numero mt-2">{{ total_patrimonios }}</div>
-                <p class="mb-3">Patrimônio(s) cadastrado(s)</p>
                 <a href="{{ url_for('patrimonio.listar') }}" class="btn btn-senai btn-sm">
                     Ver Patrimônios
                 </a>
@@ -45,8 +44,7 @@ controllers/main_controller.py.
             <div class="card-body text-center py-4">
                 <i class="bi bi-diagram-3" style="font-size: 2rem; color: var(--senai-vermelho);"></i>
                 <div class="numero mt-2">{{ total_setores }}</div>
-                <p class="mb-3">Setor(es) cadastrado(s)</p>
-                <a href="{{ url_for('setor.listar') }}" class="btn btn-senai btn-sm">
+               <a href="{{ url_for('setor.listar') }}" class="btn btn-senai btn-sm">
                     Ver Setores
                 </a>
             </div>
