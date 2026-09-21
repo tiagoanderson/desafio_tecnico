@@ -18,9 +18,15 @@
 #      não existam (isso é chamado uma única vez, ao iniciar o app.py).
 # =============================================================================
 
-import sqlite3
 
+import os
+import sqlite3
 from config import Config
+
+# Garante que a pasta do banco existe antes de conectar.
+# Sem isso, o sqlite3 dá erro "unable to open database file" quando a
+# pasta ainda não existe (ex: no Render, que começa do zero).
+os.makedirs(os.path.dirname(Config.CAMINHO_BANCO), exist_ok=True)
 
 
 def get_conexao():
