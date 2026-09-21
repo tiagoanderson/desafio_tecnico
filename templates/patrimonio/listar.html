@@ -1,0 +1,77 @@
+<!--
+=============================================================================
+templates/patrimonio/listar.html
+-----------------------------------------------------------------------------
+CAMADA: View (Frontend)
+
+Tela de listagem de Patrimônios, no mesmo padrão visual mostrado no PDF
+de orientações (ID, Nome, Nº Patrimônio, Setor, ícones de ação). A coluna
+"Setor" vem de "setor_nome", um apelido (JOIN) criado na consulta SQL de
+models/patrimonio_model.py, que já traz o nome do setor junto com o
+patrimônio numa única consulta ao banco.
+=============================================================================
+-->
+{% extends "base.html" %}
+
+{% block titulo %}Patrimônio{% endblock %}
+
+{% block conteudo %}
+<div class="painel">
+    <div class="painel-cabecalho">
+        <h1 class="h4 mb-0">Patrimônio</h1>
+        <a href="{{ url_for('patrimonio.novo') }}" class="btn btn-senai">
+            <i class="bi bi-plus-lg"></i> Adicionar Patrimônio
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">ID</th>
+                    <th>Nome</th>
+                    <th>Nº Patrimônio</th>
+                    <th>Setor</th>
+                    <th class="text-end" style="width: 120px;">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for patrimonio in patrimonios %}
+                <tr>
+                    <td>{{ "%02d"|format(patrimonio.id) }}</td>
+                    <td>{{ patrimonio.nome }}</td>
+                    <td>{{ patrimonio.numero_patrimonio }}</td>
+                    <td>{{ patrimonio.setor_nome }}</td>
+                    <td class="text-end">
+                        <a
+                            href="{{ url_for('patrimonio.editar', patrimonio_id=patrimonio.id) }}"
+                            class="icone-acao"
+                            title="Editar"
+                        >
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+
+                        <form
+                            action="{{ url_for('patrimonio.deletar', patrimonio_id=patrimonio.id) }}"
+                            method="POST"
+                            class="d-inline"
+                            data-confirmar="Tem certeza que deseja excluir o patrimônio &quot;{{ patrimonio.nome }}&quot;?"
+                        >
+                            <button type="submit" class="icone-acao btn btn-link p-0 border-0" title="Excluir">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted py-4">
+                        Nenhum patrimônio cadastrado ainda.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

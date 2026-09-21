@@ -1,0 +1,70 @@
+<!--
+=============================================================================
+templates/setor/listar.html
+-----------------------------------------------------------------------------
+CAMADA: View (Frontend)
+
+Tela de listagem de Setores (segue o mesmo layout de tabela mostrado no
+exemplo do PDF de orientações: ID, Nome, e ícones de editar/excluir).
+Os dados da lista "setores" vêm do controllers/setor_controller.py.
+=============================================================================
+-->
+{% extends "base.html" %}
+
+{% block titulo %}Setores{% endblock %}
+
+{% block conteudo %}
+<div class="painel">
+    <div class="painel-cabecalho">
+        <h1 class="h4 mb-0">Setores</h1>
+        <a href="{{ url_for('setor.novo') }}" class="btn btn-senai">
+            <i class="bi bi-plus-lg"></i> Adicionar Setor
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">ID</th>
+                    <th>Nome</th>
+                    <th class="text-end" style="width: 120px;">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for setor in setores %}
+                <tr>
+                    <td>{{ "%02d"|format(setor.id) }}</td>
+                    <td>{{ setor.nome }}</td>
+                    <td class="text-end">
+                        <a
+                            href="{{ url_for('setor.editar', setor_id=setor.id) }}"
+                            class="icone-acao"
+                            title="Editar"
+                        >
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+
+                        <form
+                            action="{{ url_for('setor.deletar', setor_id=setor.id) }}"
+                            method="POST"
+                            class="d-inline"
+                        >
+                            <button type="submit" class="icone-acao btn btn-link p-0 border-0" title="Excluir">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3" class="text-center text-muted py-4">
+                        Nenhum setor cadastrado ainda.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+```gitignore .gitignore
+# Ambiente virtual (NÃO subir — é pesado e específico da sua máquina)
+venv/
+.venv/
+env/
+
+# Arquivos compilados do Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Banco de dados local (cada lugar tem o seu)
+*.db
+*.sqlite
+*.sqlite3
+
+# Variáveis de ambiente e segredos
+.env
+
+# Configurações do editor
+.vscode/
+.idea/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+```

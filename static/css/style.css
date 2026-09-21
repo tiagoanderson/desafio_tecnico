@@ -1,0 +1,136 @@
+/* ============================================================================
+   static/css/style.css
+   ----------------------------------------------------------------------------
+   CAMADA: View (Frontend)
+
+   Estilos visuais do sistema, usando a paleta de cores institucional do
+   SENAI (vermelho, preto/cinza escuro e branco). O Bootstrap 5 (carregado
+   via CDN no base.html) cuida da estrutura/grade responsiva; este arquivo
+   apenas personaliza cores, navbar, cards e tabelas por cima dele.
+   ============================================================================ */
+
+:root {
+    --senai-vermelho: #e4002b;
+    --senai-vermelho-escuro: #b3001f;
+    --senai-cinza-escuro: #262626;
+    --senai-cinza-claro: #f5f5f5;
+    --senai-branco: #ffffff;
+}
+
+body {
+    background-color: var(--senai-cinza-claro);
+    color: var(--senai-cinza-escuro);
+}
+
+/* ---------- Barra de menu superior ---------- */
+.navbar-senai {
+    background-color: var(--senai-branco);
+    border-bottom: 4px solid var(--senai-vermelho);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-senai .navbar-brand {
+    font-weight: 700;
+    color: var(--senai-vermelho) !important;
+    letter-spacing: 1px;
+}
+
+.navbar-senai .nav-link {
+    color: var(--senai-cinza-escuro) !important;
+    font-weight: 500;
+    margin-left: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.navbar-senai .nav-link:hover,
+.navbar-senai .nav-link.active {
+    background-color: var(--senai-vermelho);
+    color: var(--senai-branco) !important;
+}
+
+/* ---------- Botões padrão (cor institucional) ---------- */
+.btn-senai {
+    background-color: var(--senai-vermelho);
+    border-color: var(--senai-vermelho);
+    color: var(--senai-branco);
+    font-weight: 600;
+}
+
+.btn-senai:hover {
+    background-color: var(--senai-vermelho-escuro);
+    border-color: var(--senai-vermelho-escuro);
+    color: var(--senai-branco);
+}
+
+/* ---------- Cards do dashboard (tela inicial) ---------- */
+.card-dashboard {
+    border: none;
+    border-top: 4px solid var(--senai-vermelho);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.15s ease-in-out;
+}
+
+.card-dashboard:hover {
+    transform: translateY(-4px);
+}
+
+.card-dashboard .numero {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--senai-vermelho);
+}
+
+/* ---------- Cartão/painel que envolve as listagens e formulários ---------- */
+.painel {
+    background-color: var(--senai-branco);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+}
+
+.painel-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+/* ---------- Tabelas de listagem ---------- */
+table thead th {
+    color: var(--senai-cinza-escuro);
+    border-bottom: 2px solid var(--senai-vermelho);
+    font-weight: 600;
+}
+
+.icone-acao {
+    color: var(--senai-vermelho);
+    margin: 0 0.25rem;
+    cursor: pointer;
+}
+
+.icone-acao:hover {
+    color: var(--senai-vermelho-escuro);
+}
+
+/* ---------- Rodapé ---------- */
+footer {
+    color: #777;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 1.5rem 0;
+}
+
+/* ---------- Ajustes responsivos ---------- */
+@media (max-width: 576px) {
+    .painel {
+        padding: 1rem;
+    }
+
+    .card-dashboard .numero {
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,54 @@
+<!--
+=============================================================================
+templates/setor/form.html
+-----------------------------------------------------------------------------
+CAMADA: View (Frontend)
+
+Formulário único, reaproveitado tanto para CRIAR quanto para EDITAR um
+setor. A variável "setor" vem do controller: se for None, estamos
+criando um novo registro; se tiver valor, estamos editando um existente.
+=============================================================================
+-->
+{% extends "base.html" %}
+
+{% block titulo %}{{ "Editar Setor" if setor else "Novo Setor" }}{% endblock %}
+
+{% block conteudo %}
+<div class="painel" style="max-width: 500px; margin: 0 auto;">
+    <h1 class="h4 mb-4">{{ "Editar Setor" if setor else "Novo Setor" }}</h1>
+
+    <!--
+        Se "setor" existir, o formulário envia para a rota de edição
+        (/setores/editar/<id>); caso contrário, envia para a rota de
+        criação (/setores/novo). Ambas as rotas aceitam POST.
+    -->
+    <form
+        method="POST"
+        action="{{ url_for('setor.editar', setor_id=setor.id) if setor else url_for('setor.novo') }}"
+    >
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome do Setor</label>
+            <input
+                type="text"
+                class="form-control"
+                id="nome"
+                name="nome"
+                maxlength="100"
+                placeholder="Ex: Administrativo, Biblioteca, Secretaria..."
+                value="{{ setor.nome if setor else '' }}"
+                required
+                autofocus
+            >
+        </div>
+
+        <div class="d-flex justify-content-end gap-2">
+            <a href="{{ url_for('setor.listar') }}" class="btn btn-outline-secondary">
+                Cancelar
+            </a>
+            <button type="submit" class="btn btn-senai">
+                <i class="bi bi-check-lg"></i> Salvar
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

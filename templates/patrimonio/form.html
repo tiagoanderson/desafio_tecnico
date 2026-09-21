@@ -1,0 +1,85 @@
+<!--
+=============================================================================
+templates/patrimonio/form.html
+-----------------------------------------------------------------------------
+CAMADA: View (Frontend)
+
+Formulário único, reaproveitado para CRIAR e EDITAR um patrimônio.
+O campo <select name="setor_id"> é o que materializa, na tela, a relação
+entre Patrimônio e Setor definida no banco de dados (chave estrangeira).
+=============================================================================
+-->
+{% extends "base.html" %}
+
+{% block titulo %}{{ "Editar Patrimônio" if patrimonio else "Novo Patrimônio" }}{% endblock %}
+
+{% block conteudo %}
+<div class="painel" style="max-width: 500px; margin: 0 auto;">
+    <h1 class="h4 mb-4">{{ "Editar Patrimônio" if patrimonio else "Novo Patrimônio" }}</h1>
+
+    <form
+        method="POST"
+        action="{{ url_for('patrimonio.editar', patrimonio_id=patrimonio.id) if patrimonio else url_for('patrimonio.novo') }}"
+    >
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome do Item</label>
+            <input
+                type="text"
+                class="form-control"
+                id="nome"
+                name="nome"
+                maxlength="100"
+                placeholder="Ex: Cadeira, Mesa, Armário..."
+                value="{{ patrimonio.nome if patrimonio else '' }}"
+                required
+                autofocus
+            >
+        </div>
+
+        <div class="mb-3">
+            <label for="numero_patrimonio" class="form-label">Nº Patrimônio</label>
+            <input
+                type="text"
+                class="form-control"
+                id="numero_patrimonio"
+                name="numero_patrimonio"
+                maxlength="50"
+                placeholder="Ex: 7305477760"
+                value="{{ patrimonio.numero_patrimonio if patrimonio else '' }}"
+                required
+            >
+        </div>
+
+        <div class="mb-3">
+            <label for="setor_id" class="form-label">Setor</label>
+            <select class="form-select" id="setor_id" name="setor_id" required>
+                <option value="" disabled {{ "selected" if not patrimonio else "" }}>
+                    Selecione um setor...
+                </option>
+                {% for setor in setores %}
+                <option
+                    value="{{ setor.id }}"
+                    {% if patrimonio and patrimonio.setor_id == setor.id %}selected{% endif %}
+                >
+                    {{ setor.nome }}
+                </option>
+                {% endfor %}
+            </select>
+            {% if not setores %}
+            <div class="form-text text-danger">
+                Nenhum setor cadastrado. <a href="{{ url_for('setor.novo') }}">Cadastre um setor primeiro</a>.
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="d-flex justify-content-end gap-2">
+            <a href="{{ url_for('patrimonio.listar') }}" class="btn btn-outline-secondary">
+                Cancelar
+            </a>
+            <button type="submit" class="btn btn-senai" {{ "disabled" if not setores else "" }}>
+                <i class="bi bi-check-lg"></i> Salvar
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
